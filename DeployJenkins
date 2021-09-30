@@ -1,0 +1,28 @@
+
+To Deploy Jenkins on RedHat/CentOs 8:
+I- Add epelfordaemonize repo:
+Step1: Create daemonize Repo File
+$ vi /etc/yum.repos.d/epelfordaemonize.repo         #<-- Copy and Paste below lines
+[daemonize]
+baseurl=https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/
+gpgcheck=no
+enabled=yes
+Step2:
+$ yum install daemonize -y
+II- Long Term Support release Jenkins:
+Step1. Install Jenkins:
+$ wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+$ rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+$ yum upgrade
+$ yum install epel-release java-11-openjdk-devel
+$ yum install jenkins
+$ systemctl daemon-reload
+Step2. enable - start - status check Jenkins:
+$ systemctl enable jenkins
+$ systemctl start jenkins
+$ systemctl status jenkins
+Step2. Post-installation setup wizard:
+Browse to http://YOUR-SERVER-IP:8080/
+Step3. Get the automatically-generated alphanumeric password:
+$ cat /var/lib/jenkins/secrets/initialAdminPassword
